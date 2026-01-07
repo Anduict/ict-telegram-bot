@@ -6,7 +6,7 @@ from datetime import datetime
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 
-BOT_TOKEN = "8557795453:AAF1ycM45KeHP5Wsml3phodHwoPLA63ABH4"
+BOT_TOKEN = "8557795453:AAFZwE9k8JsOxstMpre6My7EuHx12I2OYEo"
 EXCEL_FILE = "ict_results.xlsx"
 LOG_FILE = "access_log.csv"
 
@@ -72,9 +72,12 @@ def create_pdf(result):
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "Welcome 👋\n\n"
-        "Send your Student ID to view your ICT result.\n"
-        "Example: G11-001\n\n"
-        "After viewing your result, send /pdf to download your report card."
+        "Dilla Don Bosco Secondary School\n\n"
+        "Send your Student ID to view your Information Technology result.\n"
+        "Please keep your Student ID private."
+
+        
+
     )
 
 
@@ -88,9 +91,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         log_access(user, student_id, "FOUND")
 
         msg = f"""
-📘 ICT Exam Result
+📘 Information Technology Exam Result
 
-Student ID: {result['student_id']}
+
 Full Name: {result['name']}
 Grade & Section: {result['grade_section']}
 Semester: {result['semester']}
@@ -111,9 +114,7 @@ Total: {result['total']}
 
 async def send_pdf(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if "result" not in context.user_data:
-        await update.message.reply_text(
-            "❗ First send your Student ID to view your result."
-        )
+        await update.message.reply_text("❗ First send your Student ID.")
         return
 
     filename = create_pdf(context.user_data["result"])
